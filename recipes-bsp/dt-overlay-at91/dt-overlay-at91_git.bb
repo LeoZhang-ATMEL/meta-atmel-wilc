@@ -6,12 +6,12 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=775626b7bc958bdcc525161f725ece0f \
 
 inherit deploy
 
-COMPATIBLE_MACHINE = '(sama5d3-xplained|sama5d3-xplained-sd|at91sam9x5ek|at91sam9x5ek-sd|sama5d4-xplained|sama5d4-xplained-sd|sama5d2-xplained|sama5d2-xplained-sd|sama5d2-xplained-emmc|sama5d2-ptc-ek|sama5d2-ptc-ek-sd|sama5d27-som1-ek|sama5d27-som1-ek-sd)'
+COMPATIBLE_MACHINE = '(sama5d3-xplained|sama5d3-xplained-sd|at91sam9x5ek|at91sam9x5ek-sd|sama5d4-xplained|sama5d4-xplained-sd|sama5d2-xplained|sama5d2-xplained-sd|sama5d2-xplained-emmc|sama5d2-ptc-ek|sama5d2-ptc-ek-sd|sama5d27-som1-ek|sama5d27-som1-ek-sd|sama5d27-som1-ek-sd1)'
 
-SRC_URI = "git://github.com/linux4sam/dt-overlay-at91.git;protocol=https"
+SRC_URI = "git://github.com/LeoZhang-ATMEL/dt-overlay-at91.git;branch=linux4sam_6.0_wilc;protocol=https"
 
 PV = "1.0+git${SRCPV}"
-SRCREV = "17a984bc196f124e7fb3a98eb2a6c96368181340"
+SRCREV = "e32963baf2afda80266246fb95be120206bca5ce"
 
 DEPENDS = "virtual/kernel u-boot-mkimage-native dtc-native"
 
@@ -40,6 +40,7 @@ do_compile () {
 	# Over-ride itb target in Makefile
 	if [ -e "${AT91BOOTSTRAP_MACHINE}.its" ]; then
 		echo "Creating the FIT image"
+		echo "Creating the FIT image: mkimage -D \"-i${DEPLOY_DIR_IMAGE} -p 1000 ${DTC_OPTIONS}\" -f ${AT91BOOTSTRAP_MACHINE}.its ${AT91BOOTSTRAP_MACHINE}.itb"
 		DTC_OPTIONS="-Wno-unit_address_vs_reg -Wno-graph_child_address -Wno-pwms_property"
 		mkimage -D "-i${DEPLOY_DIR_IMAGE} -p 1000 ${DTC_OPTIONS}" -f ${AT91BOOTSTRAP_MACHINE}.its ${AT91BOOTSTRAP_MACHINE}.itb
 	else
