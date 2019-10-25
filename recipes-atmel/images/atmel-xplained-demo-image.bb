@@ -8,6 +8,8 @@ IMAGE_INSTALL += "\
     packagegroup-base-usbhost \
     mpg123 \
     mpio \
+    lan9500 \
+    lan9500-app \
     "
 
 IMAGE_INSTALL_append_sama5d2 = " nodejs nodejs-npm"
